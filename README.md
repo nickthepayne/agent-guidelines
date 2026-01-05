@@ -2,5 +2,5 @@
 
 
 ```
-mkdir -p ~/.augment/rules && cp -r .augment/rules ~/.augment/rules
+mkdir -p ~/.augment/rules && cp -r .augment/rules ~/.augment
 ```

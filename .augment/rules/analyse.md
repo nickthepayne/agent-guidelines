@@ -1,6 +1,18 @@
+---
+type: "auto"
+---
+
 # Thorough Analysis Mode
 
-When this rule is referenced, perform a comprehensive analysis of the problem statement before proposing any implementation.
+When the user asks to "analyse", "analyze", or requests an in-depth review of a problem:
+
+1. **Ask for confirmation:** "Would you like me to perform a thorough analysis? This includes researching cross-service dependencies, checking the GraphQL layer, and searching for prior art."
+2. **If confirmed:** Follow the full analysis process outlined below.
+3. **If declined:** Proceed with a standard response without the comprehensive research.
+
+---
+
+When confirmed, perform a comprehensive analysis of the problem statement before proposing any implementation.
 
 ## Analysis Requirements
 
@@ -40,43 +52,94 @@ If the problem involves common patterns, third-party integrations, or well-known
 
 ## Required Output
 
-The analysis must produce the following sections:
-
-### Problem & Solution Diagram
-
-Provide a high-level flow diagram directly in markdown (no Mermaid). Use ASCII/text-based diagrams:
+Create the following structure in the repository:
 
 ```
-Example format:
-
-[User] --> [API Gateway] --> [Service A]
-                                  |
-                                  v
-                            [Service B] --> [Database]
+docs/analysis/<feature-name>/
+├── README.md              # Summary document (for stakeholders/leads)
+├── implementation.md      # Implementation guide (for engineers)
+└── <supporting-files>     # Any additional artifacts at agent's discretion
 ```
 
-### Risks & Uncertainties
+### README.md — Summary Document
 
-- List all identified risks
-- Note any assumptions made
-- Highlight areas requiring clarification
-- Identify potential failure modes
-- Note any performance or scalability concerns
+**Audience:** Stakeholders, tech leads, anyone needing context without deep code knowledge.
 
-### Suggested Way Forward
+Contents:
+- **Executive Summary** — Clear, concise overview of the problem and proposed solution. Should be understandable without full codebase knowledge.
+- **Open Questions** — Unresolved questions that need input from stakeholders, domain experts, or further investigation. These should be prominent and actionable.
+- **Risks & Uncertainties** — All identified risks, assumptions made, potential failure modes, performance/scalability concerns.
+- **Research Summary** — What resources were consulted during the analysis: services examined, repositories reviewed, external documentation referenced, web searches performed. Provides transparency into the analysis process.
+- **Link to Implementation Guide** — Reference to `implementation.md` for technical details.
 
-- Recommended approach with rationale
-- High-level implementation tasks (ordered)
-- Dependencies between tasks
-- Suggested validation/testing strategy
-- Rollout considerations (if applicable)
+### implementation.md — Implementation Guide
+
+**Audience:** Engineers who will implement the solution.
+
+Contents:
+- **High-Level Flow Diagram(s)** — ASCII/text-based diagrams (no Mermaid). Example:
+  ```
+  [User] --> [API Gateway] --> [Service A]
+                                    |
+                                    v
+                              [Service B] --> [Database]
+  ```
+- **Suggested Implementation Steps** — Ordered tasks with dependencies. Do NOT include time estimates.
+- **Validation/Testing Strategy** — How to verify the implementation.
+- **Rollout Considerations** — If applicable.
+
+### Supporting Files
+
+At the agent's discretion, include additional artifacts that support the analysis:
+- API specifications or contracts
+- Data flow diagrams
+- Schema definitions
+- Reference documentation excerpts
 
 ## Process
 
-1. **Gather context** — Read the problem statement carefully
-2. **Identify scope** — Determine all services and systems involved
-3. **Research dependencies** — Examine external service code on GitHub
-4. **Check GraphQL layer** — Review graph-registry if user-facing
-5. **Synthesize findings** — Produce the required output sections
-6. **Validate completeness** — Ensure all risks and dependencies are documented
+1. **Create isolated workspace** — Use `git worktree` to create an isolated working directory for the analysis
+2. **Gather context** — Read the problem statement carefully
+3. **Identify scope** — Determine all services and systems involved
+4. **Research dependencies** — Examine external service code on GitHub
+5. **Check GraphQL layer** — Review graph-registry if user-facing
+6. **Synthesize findings** — Produce the required output sections
+7. **Validate completeness** — Ensure all risks and dependencies are documented
+8. **Open PR** — Commit the analysis, open a pull request, and reference the PR link when done
+
+### Git Worktree Setup
+
+Before starting the analysis, create an isolated branch and worktree:
+
+```bash
+# Create a new branch and worktree
+git worktree add ../analysis-<feature-name> -b analysis/<feature-name>
+cd ../analysis-<feature-name>
+```
+
+After completing the analysis:
+
+```bash
+# Commit and push
+git add .
+git commit -m "docs: analysis for <feature-name>"
+git push -u origin analysis/<feature-name>
+
+# Open PR using GitHub CLI
+gh pr create --title "Analysis: <feature-name>" --body "Thorough analysis for <feature-name>"
+```
+
+Provide the PR link in the final output. Ensure the link is a full URL (e.g., `https://github.com/org/repo/pull/123`) so it is clickable in CLI environments.
+
+### Worktree Cleanup
+
+After the PR is merged, clean up the worktree:
+
+```bash
+# From the main repository directory
+git worktree remove ../analysis-<feature-name>
+git branch -d analysis/<feature-name>
+```
+
+Remind the user to run these commands after the PR is merged.
 
