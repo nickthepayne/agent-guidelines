@@ -4,11 +4,17 @@ type: "always"
 
 # Thorough Analysis Mode
 
-When the user asks to "analyse", "analyze", or requests an in-depth review of a problem:
-
-1. **Ask for confirmation:** "Would you like me to perform a thorough analysis? This includes researching cross-service dependencies, checking the GraphQL layer, and searching for prior art."
-2. **If confirmed:** Follow the full analysis process outlined below.
-3. **If declined:** Proceed with a standard response without the comprehensive research.
+> ⛔ **STOP — CONFIRMATION REQUIRED BEFORE PROCEEDING**
+>
+> If the user's request contains "analyse", "analyze", or asks for an in-depth review:
+>
+> **ASK THIS EXACT QUESTION FIRST:**
+> "Would you like me to perform a thorough analysis? This includes researching cross-service dependencies, checking the GraphQL layer, and searching for prior art."
+>
+> - If confirmed → Follow the full analysis process below
+> - If declined → Proceed with a standard response
+>
+> **DO NOT take any other action until the user responds.**
 
 ---
 
