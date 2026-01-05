@@ -20,6 +20,10 @@ type: "always"
 
 When confirmed, perform a comprehensive analysis of the problem statement before proposing any implementation.
 
+> ⚠️ **Do NOT provide time estimates for any tasks or steps.**
+
+> ⚠️ **Do NOT write or modify any code during the analysis phase.** Only create documentation artifacts. Code examples in the analysis are acceptable only as illustrative snippets to support the documentation, not as implementation.
+
 ## Analysis Requirements
 
 ### 1. Cross-Service Behavior Analysis
@@ -137,15 +141,11 @@ gh pr create --title "Analysis: <feature-name>" --body "Thorough analysis for <f
 
 Provide the PR link in the final output. Ensure the link is a full URL (e.g., `https://github.com/org/repo/pull/123`) so it is clickable in CLI environments.
 
-### Worktree Cleanup
+### Continuing to Implementation
 
-After the PR is merged, clean up the worktree:
+If the user asks to continue with implementation after the analysis:
 
-```bash
-# From the main repository directory
-git worktree remove ../analysis-<feature-name>
-git branch -d analysis/<feature-name>
-```
-
-Remind the user to run these commands after the PR is merged.
+- **Stay in the same worktree** — Do not create a new branch or worktree
+- **Continue committing to the same branch** — Add implementation commits on top of the analysis
+- **Update the existing PR** — Push additional commits to the same PR
 

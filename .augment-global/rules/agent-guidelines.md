@@ -75,6 +75,14 @@ Do not consider work complete until all verification passes.
 
 ## Completing Work
 
+> ⛔ **STOP — BEFORE MARKING WORK COMPLETE**
+>
+> Verify you have followed all rules provided in this session, especially:
+> - Rules with STOP signals requiring confirmation or action
+> - Any conditional rules triggered by your actions (e.g., editing specific folders)
+>
+> **If you skipped any required confirmations or actions, address them NOW.**
+
 Before marking work as done, verify:
 
 - [ ] Implementation matches the instructions exactly (no added scope)
@@ -83,6 +91,7 @@ Before marking work as done, verify:
 - [ ] Linter and type-checker pass
 - [ ] Tests pass (existing and new)
 - [ ] Names are descriptive and consistent with codebase conventions
+- [ ] All rule-specific requirements have been followed
 
 ## Prohibited
 
