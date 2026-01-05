@@ -1,5 +1,5 @@
 ---
-type: "auto"
+type: "always"
 ---
 
 # Thorough Analysis Mode
