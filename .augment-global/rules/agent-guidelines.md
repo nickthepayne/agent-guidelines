@@ -40,6 +40,7 @@ Do not consider work complete until all verification passes.
 - Favor clarity and explicitness over brevity or cleverness.
 - Use descriptive names; avoid abbreviations unless universally common (e.g., ID, URL, API).
 - Keep functions and components focused on a single responsibility.
+- Code should be self-explanatory; only use Javadoc/comments when the code requires special explanation. Avoid redundant documentation that restates what the code already expresses.
 
 ### Principles
 - **KISS** — Keep it simple. Prefer straightforward solutions.
